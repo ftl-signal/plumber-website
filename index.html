@@ -6,12 +6,12 @@
 <!-- ============================================================
      [SWAP PAGE TITLE] — browser tab + Google results
      ============================================================ -->
-<title>Frook Plumbing &amp; Mechanical | Lansing's Trusted Plumbers Since 1994</title>
-<meta name="description" content="Family-run plumbers serving Greater Lansing, MI since 1994. Licensed, bonded, insured. 24/7 emergency service. Call 517-267-1010.">
+<title>Frook Plumbing &amp; Mechanical | Greater Lansing's Neighborhood Plumbers Since 1994</title>
+<meta name="description" content="Family-run plumbers serving Greater Lansing and Mid-Michigan since 1994. Licensed, bonded, insured. 24/7 emergency service. Sprinkler, drain, and water heater experts. Call 517-267-1010.">
 <meta name="theme-color" content="#006d5b">
 
 <!-- ============================================================
-     FONT — Inter, sans-serif only
+     FONT — Inter only, sans-serif
      ============================================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,23 +21,29 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- ============================================================
-     BRAND TOKENS — the ONE place to rebrand
-     [CHANGE PRIMARY COLOR HEX] to rebrand for another client
+     BRAND TOKENS — the ONE place to rebrand.
+     [CHANGE PRIMARY COLOR HEX] to rebrand for another client.
+     The three functional colors are:
+       brand      → teal accents, nav phone, services highlights
+       emergency  → RED, reserved for 24/7 call-now CTAs
+       accent     → yellow/gold, reserved for promo/coupon badges
      ============================================================ -->
 <script>
   tailwind.config = {
     theme: {
       extend: {
         colors: {
-          brand:      '#006d5b',   /* [CHANGE PRIMARY COLOR HEX] */
-          'brand-dk': '#004d40',
-          'brand-hv': '#00574a',
-          'brand-lt': '#e6f1ee',
-          ink:        '#0a0f14',
-          'ink-2':    '#1f2937',
-          soft:       '#f6f7f9',
-          line:       '#e5e7eb',
-          muted:      '#4b5563',
+          brand:         '#006d5b',   /* [CHANGE PRIMARY COLOR HEX] */
+          'brand-hv':    '#00574a',
+          'brand-lt':    '#e6f1ee',
+          emergency:     '#dc2626',   /* red-600 — URGENT call CTAs only */
+          'emergency-hv':'#b91c1c',   /* red-700 */
+          accent:        '#facc15',   /* yellow-400 — coupon/promo accent */
+          ink:           '#0a0f14',
+          'ink-2':       '#1f2937',
+          soft:          '#f6f7f9',
+          line:          '#e5e7eb',
+          muted:         '#4b5563',
         },
         fontFamily: {
           sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
@@ -62,10 +68,13 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
+
+  /* Type scale helpers — tight, modern, bold */
   .h1 { font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
   .h2 { font-weight: 800; letter-spacing: -0.025em; line-height: 1.08; }
   .h3 { font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; }
 
+  /* Uppercase micro-label */
   .label {
     font-size: 13px;
     font-weight: 700;
@@ -73,16 +82,64 @@
     text-transform: uppercase;
   }
 
+  /* Focus states */
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
     outline: 2px solid #006d5b;
     outline-offset: 3px;
     border-radius: 6px;
   }
 
+  /* Mobile: leave room for sticky red emergency bar */
   @media (max-width: 767px) {
     main { padding-bottom: 96px; }
   }
 
+  /* =========================================================
+     HERO IMAGE POSITIONING
+     Object-position is set differently for mobile vs desktop
+     so the family is always in frame no matter the viewport.
+     Desktop: shift image RIGHT (30% x) so family isn't under
+              the text content on the left.
+     Mobile:  center horizontally (50% x) so family is centered
+              in the top banner portion.
+     Vertical: 30–35% anchors faces high in the frame, preventing
+               top-crop of heads at any aspect ratio.
+     ========================================================= */
+  .hero-family-img {
+    object-fit: cover;
+    object-position: 30% 35%;
+  }
+  @media (max-width: 767px) {
+    .hero-family-img {
+      object-position: 50% 30%;
+    }
+  }
+
+  /* =========================================================
+     HERO LIGHT GRADIENT
+     Desktop: darkens only the left side where text sits.
+              Fades to transparent by 65% width so the family
+              photo stays bright and visible.
+     Mobile:  softer top-to-bottom fade, content sits at bottom.
+     ========================================================= */
+  .hero-overlay {
+    background: linear-gradient(90deg,
+      rgba(10,15,20,0.62) 0%,
+      rgba(10,15,20,0.35) 30%,
+      rgba(10,15,20,0.08) 60%,
+      rgba(10,15,20,0) 80%);
+  }
+  @media (max-width: 767px) {
+    .hero-overlay {
+      background: linear-gradient(180deg,
+        rgba(10,15,20,0.00) 0%,
+        rgba(10,15,20,0.15) 35%,
+        rgba(10,15,20,0.65) 80%,
+        rgba(10,15,20,0.80) 100%);
+    }
+  }
+
+  /* Service card hover */
   .svc-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
   .svc-card:hover { transform: translateY(-2px); border-color: #006d5b; }
 
@@ -94,25 +151,48 @@
 <body>
 
 <!-- ============================================================
+     COUPON BANNER — very top, attention-grabbing, above nav
+     Dark ink bg + yellow "SAVE 10%" pill + white body + CTA link
+     [SWAP COUPON TEXT HERE]
+     ============================================================ -->
+<div class="bg-ink text-white">
+  <div class="max-w-7xl mx-auto px-4 py-2.5 md:py-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-center">
+    <span class="inline-flex items-center gap-2.5">
+      <span class="bg-accent text-ink font-extrabold px-2.5 py-1 rounded uppercase tracking-wider text-[11px] md:text-xs">
+        Save 10%
+      </span>
+      <span class="text-[13px] md:text-sm font-semibold text-white">
+        Seniors &amp; new customers &middot; Perfect for summer prep
+      </span>
+    </span>
+    <a href="tel:517-267-1010"
+       class="text-[13px] md:text-sm font-bold text-white underline decoration-2 underline-offset-4 hover:text-accent hover:decoration-accent transition">
+      Call 517-267-1010 to claim &rarr;
+    </a>
+  </div>
+</div>
+
+<!-- ============================================================
      TOP NAV — sticky, white, high contrast
+     [SWAP NAV LOGO]
      ============================================================ -->
 <header class="sticky top-0 z-40 bg-white border-b border-line">
   <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 md:h-20 flex items-center justify-between">
 
-    <!-- [SWAP NAV LOGO] -->
     <a href="#top" class="flex items-center shrink-0" aria-label="Frook Plumbing home">
       <img src="logo-no-phone.png" alt="Frook Plumbing &amp; Mechanical" class="h-10 md:h-12 w-auto">
     </a>
 
     <nav class="hidden lg:flex items-center gap-9 text-[15px] font-semibold text-ink-2">
       <a href="#services" class="hover:text-brand transition">Services</a>
+      <a href="#request"  class="hover:text-brand transition">Request Service</a>
       <a href="#story"    class="hover:text-brand transition">About</a>
       <a href="#voices"   class="hover:text-brand transition">Testimonials</a>
-      <a href="#tips"     class="hover:text-brand transition">Resources</a>
+      <a href="#tips"     class="hover:text-brand transition">Summer Tips</a>
       <a href="#areas"    class="hover:text-brand transition">Service Area</a>
-      <a href="#contact"  class="hover:text-brand transition">Contact</a>
     </nav>
 
+    <!-- Nav call button stays teal — brand-consistent. Red reserved for hero/sticky emergency. -->
     <a href="tel:517-267-1010"
        class="hidden md:inline-flex items-center gap-2 bg-brand hover:bg-brand-hv text-white font-bold px-5 py-3 rounded-xl transition">
       <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
@@ -128,15 +208,16 @@
     </button>
   </div>
 
+  <!-- Mobile dropdown -->
   <div id="mobileMenu" class="lg:hidden hidden border-t border-line bg-white">
     <nav class="px-5 py-2 flex flex-col text-[17px] font-semibold">
       <a href="#services" class="py-4 border-b border-line">Services</a>
+      <a href="#request"  class="py-4 border-b border-line">Request Service</a>
       <a href="#story"    class="py-4 border-b border-line">About</a>
       <a href="#voices"   class="py-4 border-b border-line">Testimonials</a>
-      <a href="#tips"     class="py-4 border-b border-line">Resources</a>
+      <a href="#tips"     class="py-4 border-b border-line">Summer Tips</a>
       <a href="#areas"    class="py-4 border-b border-line">Service Area</a>
-      <a href="#contact"  class="py-4 border-b border-line">Contact</a>
-      <a href="tel:517-267-1010" class="py-4 text-brand">Call 517-267-1010</a>
+      <a href="tel:517-267-1010" class="py-4 text-emergency">Emergency: 517-267-1010</a>
     </nav>
   </div>
 </header>
@@ -144,56 +225,53 @@
 <main id="top">
 
 <!-- ============================================================
-     HERO — SPLIT LAYOUT
-     Photo on right (desktop) / top (mobile) — NO dark overlay.
-     Content on left (desktop) / bottom (mobile) — clean white bg.
+     HERO — full-bleed family photo with LIGHT gradient
      [SWAP HERO IMAGE] + [SWAP HERO LOGO]
+     Red urgent CTA + white secondary
      ============================================================ -->
-<section class="bg-white">
-  <div class="grid lg:grid-cols-2 lg:min-h-[640px]">
+<section class="relative overflow-hidden">
+  <img src="Frook-Family-1-1500x600.jpg"
+       alt="The Frook family, owners of Frook Plumbing &amp; Mechanical in Greater Lansing"
+       class="hero-family-img absolute inset-0 w-full h-full"
+       loading="eager">
+  <div class="absolute inset-0 hero-overlay"></div>
 
-    <!-- Photo column — first in HTML so mobile shows it on top -->
-    <div class="lg:order-2 relative overflow-hidden bg-soft">
-      <img src="Frook-Family-1-1500x600.jpg"
-           alt="The Frook family, owners of Frook Plumbing &amp; Mechanical in Lansing, Michigan"
-           class="w-full aspect-[5/3] lg:aspect-auto lg:h-full lg:absolute lg:inset-0 object-cover"
-           style="object-position: 50% 35%;"
-           loading="eager">
-    </div>
+  <div class="relative max-w-7xl mx-auto px-5 md:px-8 pt-16 pb-20 md:py-36 lg:py-44">
+    <div class="max-w-2xl">
 
-    <!-- Content column -->
-    <div class="lg:order-1 px-5 md:px-8 lg:px-12 xl:px-16 py-12 md:py-16 lg:py-20 flex flex-col justify-center">
-
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-2 bg-brand-lt border border-brand/15 rounded-full px-4 py-2 mb-6 self-start">
-        <span class="w-2 h-2 rounded-full bg-brand"></span>
-        <span class="text-brand text-sm font-semibold">Family-owned &middot; Lansing &middot; Since 1994</span>
+      <!-- Since 1994 badge -->
+      <div class="inline-flex items-center gap-2 bg-white/12 backdrop-blur-sm border border-white/25 rounded-full px-4 py-2 mb-8">
+        <span class="w-2 h-2 rounded-full bg-accent"></span>
+        <span class="text-white text-sm font-semibold">Family-owned &middot; Greater Lansing &middot; Since 1994</span>
       </div>
 
-      <!-- [SWAP HERO LOGO] — sits cleanly on white, no container card -->
+      <!-- [SWAP HERO LOGO] — big logo w/ phone baked in -->
       <img src="frook-logo-new-with-phone.png"
            alt="Frook Plumbing &amp; Mechanical — 517-267-1010"
-           class="w-48 md:w-56 lg:w-64 mb-7">
+           class="w-56 md:w-64 bg-white rounded-xl p-3 mb-8 shadow-lg">
 
-      <!-- Headline — sized to fit 50% column -->
-      <h1 class="h1 text-ink text-[42px] sm:text-5xl lg:text-[60px] xl:text-7xl mb-5">
-        Lansing's trusted plumbers.
+      <!-- [SWAP HEADLINE] -->
+      <h1 class="h1 text-white text-[42px] sm:text-6xl md:text-7xl mb-6"
+          style="text-shadow: 0 2px 20px rgba(0,0,0,0.35);">
+        Greater Lansing's<br>neighborhood plumbers.
       </h1>
 
-      <p class="text-muted text-lg md:text-xl mb-9 max-w-xl leading-relaxed">
-        Licensed, bonded, and insured. Family-run since 1994. 24/7 emergency service across Greater Lansing and Mid-Michigan.
+      <p class="text-white text-lg md:text-xl mb-10 max-w-xl leading-relaxed"
+         style="text-shadow: 0 1px 10px rgba(0,0,0,0.4);">
+        Plumbing &amp; drain experts since 1994. Licensed, bonded, insured. 24/7 emergency service across Greater Lansing and Mid-Michigan — sprinkler systems, water heaters, drains, and everything in between.
       </p>
 
+      <!-- CTAs: RED urgent + white secondary -->
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <a href="tel:517-267-1010"
-           class="inline-flex items-center justify-center gap-3 bg-brand hover:bg-brand-hv text-white font-bold text-lg px-7 py-5 rounded-xl shadow-lg transition">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+           class="inline-flex items-center justify-center gap-3 bg-emergency hover:bg-emergency-hv text-white font-bold text-lg px-7 py-5 rounded-xl shadow-xl transition ring-1 ring-emergency/60">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
           </svg>
-          Call 24/7 &middot; 517-267-1010
+          24/7 Emergency &middot; 517-267-1010
         </a>
-        <a href="#contact"
-           class="inline-flex items-center justify-center gap-2 bg-white border-2 border-ink hover:bg-ink hover:text-white text-ink font-bold text-lg px-7 py-5 rounded-xl transition">
+        <a href="#request"
+           class="inline-flex items-center justify-center gap-2 bg-white hover:bg-white/95 text-ink font-bold text-lg px-7 py-5 rounded-xl transition shadow-lg">
           Request Service
         </a>
       </div>
@@ -203,82 +281,28 @@
 </section>
 
 <!-- ============================================================
-     TRUST STRIP
+     SERVICES — with crew photo + summer-relevant cards
+     [SWAP SERVICES IMAGE] + [SWAP SERVICES LIST]
      ============================================================ -->
-<section class="bg-ink text-white">
-  <div class="max-w-7xl mx-auto px-5 md:px-8 py-6">
-    <ul class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm md:text-base font-semibold text-white/90">
-      <li class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-        Fully Licensed
-      </li>
-      <li class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-        Bonded &amp; Insured
-      </li>
-      <li class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-        44+ Years Combined Experience
-      </li>
-      <li class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-        Upfront, Honest Pricing
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- ============================================================
-     STATS — big bold credibility numbers
-     [SWAP STATS]
-     ============================================================ -->
-<section class="py-16 md:py-24 bg-white">
-  <div class="max-w-7xl mx-auto px-5 md:px-8">
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6">
-      <div>
-        <div class="h1 text-brand text-5xl md:text-6xl mb-2">30+</div>
-        <div class="text-ink-2 font-semibold">Years Serving Lansing</div>
-      </div>
-      <div>
-        <div class="h1 text-brand text-5xl md:text-6xl mb-2">24/7</div>
-        <div class="text-ink-2 font-semibold">Emergency Response</div>
-      </div>
-      <div>
-        <div class="h1 text-brand text-5xl md:text-6xl mb-2">44+</div>
-        <div class="text-ink-2 font-semibold">Combined Years on the Job</div>
-      </div>
-      <div>
-        <div class="h1 text-brand text-5xl md:text-6xl mb-2">100%</div>
-        <div class="text-ink-2 font-semibold">Licensed, Bonded &amp; Insured</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     SERVICES — two-column intro + clean card grid with icons
-     [SWAP SERVICES LIST]
-     ============================================================ -->
-<section id="services" class="py-20 md:py-28 bg-soft">
+<section id="services" class="py-20 md:py-28 bg-white">
   <div class="max-w-7xl mx-auto px-5 md:px-8">
 
-    <!-- Intro: content left, team/truck photo right -->
+    <!-- Intro: content left, crew photo right -->
     <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-14 md:mb-20">
 
       <div>
         <div class="label text-brand mb-4">What we do</div>
         <h2 class="h2 text-4xl md:text-5xl lg:text-6xl mb-5">
-          Plumbing and mechanical, done right.
+          Plumbing &amp; mechanical, every season.
         </h2>
         <p class="text-muted text-lg md:text-xl leading-relaxed">
-          Residential and commercial service across Greater Lansing. If it carries water, heat, or gas — we fix it, install it, and stand behind it.
+          Residential and commercial service across Greater Lansing and Mid-Michigan. Whether it's a sprinkler line that won't prime, a hose bib dripping inside the wall, or a water heater that quit the night before guests arrived — we fix it, install it, and stand behind it.
         </p>
       </div>
 
-      <!-- [SWAP SERVICES IMAGE] -->
       <div>
         <img src="Frook-Plumbers-1500x600.jpg"
-             alt="Frook Plumbing crew standing in front of a service truck"
+             alt="The Frook Plumbing crew in front of a service truck"
              class="w-full rounded-2xl object-cover aspect-[5/3] shadow-card"
              style="object-position: center center;"
              loading="lazy">
@@ -286,25 +310,28 @@
 
     </div>
 
-    <!-- Card grid -->
+    <!-- 6-card service grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
 
+      <!-- 24/7 Emergency -->
       <div class="svc-card bg-white border border-line rounded-2xl p-7 md:p-8 shadow-card">
-        <div class="w-12 h-12 rounded-xl bg-brand-lt text-brand flex items-center justify-center mb-6">
+        <div class="w-12 h-12 rounded-xl bg-emergency/10 text-emergency flex items-center justify-center mb-6">
           <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
         </div>
         <h3 class="h3 text-xl md:text-2xl mb-3">24/7 Emergency Plumbing</h3>
-        <p class="text-muted">Burst pipes, major leaks, floods. A real person answers the phone — day or night.</p>
+        <p class="text-muted">Burst pipes, active leaks, floods. A real person answers the phone — day, night, weekend, holiday.</p>
       </div>
 
+      <!-- Drain & Sewer -->
       <div class="svc-card bg-white border border-line rounded-2xl p-7 md:p-8 shadow-card">
         <div class="w-12 h-12 rounded-xl bg-brand-lt text-brand flex items-center justify-center mb-6">
           <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9 9v6m6-6v6M9 12h6"/></svg>
         </div>
         <h3 class="h3 text-xl md:text-2xl mb-3">Drain &amp; Sewer</h3>
-        <p class="text-muted">Clogged mains, slow drains, tree-root intrusions. Cleared fast with camera-confirmed work.</p>
+        <p class="text-muted">Clogged mains, slow drains, tree-root intrusions, and summer-storm backups. Cleared fast with camera-confirmed work.</p>
       </div>
 
+      <!-- Water Heaters -->
       <div class="svc-card bg-white border border-line rounded-2xl p-7 md:p-8 shadow-card">
         <div class="w-12 h-12 rounded-xl bg-brand-lt text-brand flex items-center justify-center mb-6">
           <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21m8.25-9H18M6 12H3.75m14.36-6.36l-1.59 1.59M7.23 16.77l-1.59 1.59m0-12.72l1.59 1.59m9.55 9.54l1.59 1.59M12 18a6 6 0 100-12 6 6 0 000 12z"/></svg>
@@ -313,28 +340,31 @@
         <p class="text-muted">Tank and tankless. Gas or electric. Repair, replacement, and straight answers about what you actually need.</p>
       </div>
 
+      <!-- Sprinkler & Outdoor -->
+      <div class="svc-card bg-white border border-line rounded-2xl p-7 md:p-8 shadow-card">
+        <div class="w-12 h-12 rounded-xl bg-brand-lt text-brand flex items-center justify-center mb-6">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5m0 15V21m-9-9h1.5m15 0H21M5.636 5.636l1.06 1.06m10.608 10.608l1.06 1.06M5.636 18.364l1.06-1.06m10.608-10.608l1.06-1.06M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/></svg>
+        </div>
+        <h3 class="h3 text-xl md:text-2xl mb-3">Sprinkler &amp; Outdoor Plumbing</h3>
+        <p class="text-muted">Irrigation line repair, backflow testing, and outdoor hookups. Keep your Mid-Michigan lawn green all summer without the leaks.</p>
+      </div>
+
+      <!-- Hose Bibs / Summer Prep -->
+      <div class="svc-card bg-white border border-line rounded-2xl p-7 md:p-8 shadow-card">
+        <div class="w-12 h-12 rounded-xl bg-brand-lt text-brand flex items-center justify-center mb-6">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.333 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+        </div>
+        <h3 class="h3 text-xl md:text-2xl mb-3">Hose Bibs &amp; Summer Prep</h3>
+        <p class="text-muted">Outdoor faucet repair, frost-free bib installs, and the hidden leaks last winter left behind. Find them before August floods your wall.</p>
+      </div>
+
+      <!-- Boilers, HVAC & AC tie-ins -->
       <div class="svc-card bg-white border border-line rounded-2xl p-7 md:p-8 shadow-card">
         <div class="w-12 h-12 rounded-xl bg-brand-lt text-brand flex items-center justify-center mb-6">
           <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.362-6.386zM12 18a3.75 3.75 0 00.495-7.468 5.99 5.99 0 00-1.925 3.547 5.975 5.975 0 01-2.133-1.001A3.75 3.75 0 0012 18z"/></svg>
         </div>
-        <h3 class="h3 text-xl md:text-2xl mb-3">Boilers &amp; Heating</h3>
-        <p class="text-muted">Seasonal tune-ups, diagnostics, and new installs built to handle Michigan winters.</p>
-      </div>
-
-      <div class="svc-card bg-white border border-line rounded-2xl p-7 md:p-8 shadow-card">
-        <div class="w-12 h-12 rounded-xl bg-brand-lt text-brand flex items-center justify-center mb-6">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/></svg>
-        </div>
-        <h3 class="h3 text-xl md:text-2xl mb-3">Remodel Plumbing</h3>
-        <p class="text-muted">Kitchens, baths, and utility rooms. Rough-in, finish work, and fixture installs done on time and on budget.</p>
-      </div>
-
-      <div class="svc-card bg-white border border-line rounded-2xl p-7 md:p-8 shadow-card">
-        <div class="w-12 h-12 rounded-xl bg-brand-lt text-brand flex items-center justify-center mb-6">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>
-        </div>
-        <h3 class="h3 text-xl md:text-2xl mb-3">Commercial Service</h3>
-        <p class="text-muted">Restaurants, offices, and multi-unit properties. Scheduled maintenance and service that works around your operation.</p>
+        <h3 class="h3 text-xl md:text-2xl mb-3">Boilers, HVAC &amp; AC Tie-Ins</h3>
+        <p class="text-muted">Boiler service, AC condensate lines, and mechanical plumbing for residential and commercial systems. Year-round comfort, properly plumbed.</p>
       </div>
 
     </div>
@@ -342,43 +372,113 @@
 </section>
 
 <!-- ============================================================
-     CTA BAND — full-width teal, conversion reinforcement
+     REQUEST APPOINTMENT FORM — placed early, high-conversion
+     [FORM ENDPOINT] — wire action="" to Formspree / Netlify / backend
      ============================================================ -->
-<section class="bg-brand">
-  <div class="max-w-7xl mx-auto px-5 md:px-8 py-14 md:py-20">
-    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-      <div class="max-w-2xl">
-        <h2 class="h2 text-white text-3xl md:text-5xl mb-3">
-          Plumbing emergency? We pick up.
-        </h2>
-        <p class="text-white/90 text-lg md:text-xl">
-          No call centers. No runaround. Just a local plumber on the line, 24 hours a day.
-        </p>
-      </div>
-      <a href="tel:517-267-1010"
-         class="inline-flex items-center justify-center gap-3 bg-white hover:bg-white/95 text-brand font-bold text-lg md:text-xl px-8 py-5 rounded-xl shadow-lg whitespace-nowrap transition">
-        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
-        </svg>
-        Call 517-267-1010
-      </a>
+<section id="request" class="py-20 md:py-28 bg-soft">
+  <div class="max-w-6xl mx-auto px-5 md:px-8">
+
+    <div class="text-center max-w-2xl mx-auto mb-10 md:mb-14">
+      <div class="label text-brand mb-4">Request a visit</div>
+      <h2 class="h2 text-4xl md:text-5xl lg:text-6xl mb-5">
+        Book a plumber. Fast response.
+      </h2>
+      <p class="text-muted text-lg md:text-xl">
+        Tell us what's going on. We respond quickly during business hours &mdash; usually within the hour. For active emergencies, please call so we can dispatch right away.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-card border border-line p-6 md:p-10">
+      <form action="#" method="POST" class="space-y-5">
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <div>
+            <label for="f-name" class="block text-sm font-bold mb-2 text-ink">Your name</label>
+            <input type="text" id="f-name" name="name" required
+                   class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition">
+          </div>
+          <div>
+            <label for="f-phone" class="block text-sm font-bold mb-2 text-ink">Phone</label>
+            <input type="tel" id="f-phone" name="phone" required
+                   class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition">
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <div>
+            <label for="f-email" class="block text-sm font-bold mb-2 text-ink">Email</label>
+            <input type="email" id="f-email" name="email"
+                   class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition">
+          </div>
+          <div>
+            <label for="f-city" class="block text-sm font-bold mb-2 text-ink">City / ZIP</label>
+            <input type="text" id="f-city" name="city" placeholder="e.g. Lansing, 48912"
+                   class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition">
+          </div>
+        </div>
+
+        <div>
+          <label for="f-type" class="block text-sm font-bold mb-2 text-ink">What do you need?</label>
+          <select id="f-type" name="type"
+                  class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition">
+            <option>Schedule an appointment</option>
+            <option>Sprinkler / outdoor plumbing</option>
+            <option>Hose bib or outdoor faucet</option>
+            <option>Drain or sewer</option>
+            <option>Water heater</option>
+            <option>Boiler / HVAC plumbing</option>
+            <option>Remodel or new build</option>
+            <option>Commercial service</option>
+            <option>Just a question</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="f-msg" class="block text-sm font-bold mb-2 text-ink">Tell us what's going on</label>
+          <textarea id="f-msg" name="message" rows="4"
+                    class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition"></textarea>
+        </div>
+
+        <button type="submit"
+                class="w-full bg-brand hover:bg-brand-hv text-white font-bold text-lg px-7 py-5 rounded-xl transition shadow">
+          Send request
+        </button>
+
+        <!-- Emergency reinforcement — RED for urgency -->
+        <div class="pt-2 text-center">
+          <p class="text-sm text-muted mb-3">Active emergency? Don't wait on a form.</p>
+          <a href="tel:517-267-1010"
+             class="inline-flex items-center justify-center gap-2 bg-emergency hover:bg-emergency-hv text-white font-bold px-6 py-3 rounded-xl transition">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+            </svg>
+            Call 24/7 &middot; 517-267-1010
+          </a>
+        </div>
+
+      </form>
+
+      <!-- ============================================================
+           [AI CHATBOT EMBED] — paste chatbot script/iframe here.
+           ============================================================ -->
+      <!-- AI CHATBOT EMBED GOES HERE -->
+
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     ABOUT / STORY — warmer journalistic voice, clean layout
-     Dave image uses 5/3 aspect now to fit the 2.5:1 source file
+     ABOUT / STORY — Dave photo + retold story w/ summer opener
      [REPLACE STORY TEXT HERE]
      ============================================================ -->
 <section id="story" class="py-20 md:py-28 bg-white">
   <div class="max-w-7xl mx-auto px-5 md:px-8">
     <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-      <!-- [SWAP ABOUT IMAGE] -->
+      <!-- [SWAP ABOUT IMAGE] — Dave-Frook 2.5:1 source, fits 5/3 container -->
       <div class="order-2 lg:order-1">
         <img src="Dave-Frook-1500x600.jpg"
-             alt="Dave Frook at a customer's Lansing home"
+             alt="Dave Frook, owner of Frook Plumbing &amp; Mechanical"
              class="w-full rounded-2xl object-cover aspect-[5/3] shadow-card"
              style="object-position: center center;"
              loading="lazy">
@@ -392,21 +492,21 @@
 
         <div class="space-y-5 text-muted text-lg leading-relaxed">
           <p>
-            Lansing winters don't negotiate. Pipes freeze. Water heaters quit on Christmas Eve. Basements flood at 2 a.m.
+            Summer in Greater Lansing means sprinklers running at dawn, kids in the backyard pool, and grills going every weekend. It also means hose bibs that won't shut off, irrigation lines that break mid-season, and water heaters that quit the night before guests arrive.
           </p>
           <p>
-            Since 1994, the Frook family has made it their job to be the call you're glad you had in your phone. Built on more than <span class="text-ink font-semibold">44 years of combined experience</span> across Mid-Michigan, Frook Plumbing &amp; Mechanical is a small, family-run crew — fully licensed, bonded, and insured — with a reputation for showing up on time, explaining things plainly, and quoting a price that doesn't change when the work is done.
+            Since 1994, the Frook family has made it their job to be the call you're glad you had in your phone. Built on more than <span class="text-ink font-semibold">44 years of combined experience</span> across Greater Lansing and Mid-Michigan, Frook Plumbing &amp; Mechanical is a small, family-run crew &mdash; fully licensed, bonded, and insured &mdash; with a reputation for showing up on time, explaining things plainly, and quoting a price that doesn't change when the work is done.
           </p>
           <p class="text-ink font-bold text-xl">
             No surprises. No upsells. No inflated emergency rates.
           </p>
           <p>
-            Just steady, careful work from neighbors who live and work in the same neighborhoods they serve — from Dimondale to DeWitt, Okemos to Eagle.
+            Just steady, careful work from neighbors who live and work in the same neighborhoods they serve &mdash; from Dimondale to DeWitt, Okemos to Eagle, and everywhere across Mid-Michigan.
           </p>
         </div>
 
         <div class="mt-8 text-ink font-bold">
-          — Dave Frook, Owner
+          &mdash; Dave Frook, Owner
         </div>
       </div>
 
@@ -415,9 +515,8 @@
 </section>
 
 <!-- ============================================================
-     TEAM BANNER — full-bleed, LIGHT gradient, testimonial card
-     Gradient lightened from ink/80 to ink/35 so the crew photo shows
-     [SWAP TEAM IMAGE]
+     TEAM BANNER — full-bleed crew photo + testimonial overlay
+     Light gradient only. [SWAP TEAM IMAGE]
      ============================================================ -->
 <section id="voices" class="relative">
   <div class="relative h-[460px] md:h-[560px] overflow-hidden">
@@ -426,7 +525,6 @@
          class="absolute inset-0 w-full h-full object-cover"
          style="object-position: center center;"
          loading="lazy">
-    <!-- Lighter gradient: only a soft bottom fade for card legibility -->
     <div class="absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent"></div>
 
     <div class="relative max-w-7xl mx-auto px-5 md:px-8 h-full flex items-end pb-10 md:pb-16">
@@ -439,9 +537,9 @@
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.163c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.363 1.118l1.286 3.957c.3.921-.755 1.688-1.539 1.118l-3.37-2.448a1 1 0 00-1.176 0l-3.37 2.448c-.784.57-1.838-.197-1.539-1.118l1.286-3.957a1 1 0 00-.363-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.957z"/></svg>
         </div>
         <p class="h3 text-ink text-xl md:text-2xl mb-4">
-          "They are the BEST. Fixed my problem right away — nice, knowledgeable, and very reasonably priced."
+          "They are the BEST. Fixed my problem right away &mdash; nice, knowledgeable, and very reasonably priced."
         </p>
-        <p class="font-bold text-ink-2">Verified customer · Lansing</p>
+        <p class="font-bold text-ink-2">Verified customer &middot; Lansing</p>
       </div>
     </div>
   </div>
@@ -457,7 +555,7 @@
     <div class="max-w-3xl mb-12 md:mb-16">
       <div class="label text-brand mb-4">What customers say</div>
       <h2 class="h2 text-4xl md:text-5xl lg:text-6xl">
-        Real reviews from Lansing neighbors.
+        Real reviews from Greater Lansing neighbors.
       </h2>
     </div>
 
@@ -474,7 +572,7 @@
         <blockquote class="text-ink text-[17px] leading-relaxed flex-1">
           Steve got me the same (but newer) model sump pump for half the cost. He left to retrieve the parts and returned later that morning, replacing the old equipment and making sure it was installed and working before cleaning up.
         </blockquote>
-        <figcaption class="mt-6 pt-5 border-t border-line font-bold text-ink-2">Homeowner · East Lansing</figcaption>
+        <figcaption class="mt-6 pt-5 border-t border-line font-bold text-ink-2">Homeowner &middot; East Lansing</figcaption>
       </figure>
 
       <figure class="bg-white border border-line rounded-2xl p-7 md:p-8 flex flex-col shadow-card">
@@ -488,7 +586,7 @@
         <blockquote class="text-ink text-[17px] leading-relaxed flex-1">
           They are the BEST. Once the plumber got to my house he fixed my problem right away and was very nice and knowledgeable. Very reasonably priced too. Would highly recommend for any plumbing problem.
         </blockquote>
-        <figcaption class="mt-6 pt-5 border-t border-line font-bold text-ink-2">Homeowner · Okemos</figcaption>
+        <figcaption class="mt-6 pt-5 border-t border-line font-bold text-ink-2">Homeowner &middot; Okemos</figcaption>
       </figure>
 
       <figure class="bg-white border border-line rounded-2xl p-7 md:p-8 flex flex-col shadow-card">
@@ -500,9 +598,9 @@
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.163c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.363 1.118l1.286 3.957c.3.921-.755 1.688-1.539 1.118l-3.37-2.448a1 1 0 00-1.176 0l-3.37 2.448c-.784.57-1.838-.197-1.539-1.118l1.286-3.957a1 1 0 00-.363-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.957z"/></svg>
         </div>
         <blockquote class="text-ink text-[17px] leading-relaxed flex-1">
-          Some fittings eroded and caused the main water line to leak. Called them up and they were out within a few hours and had it repaired in about an hour. Very friendly and great service — definitely recommended.
+          Some fittings eroded and caused the main water line to leak. Called them up and they were out within a few hours and had it repaired in about an hour. Very friendly and great service &mdash; definitely recommended.
         </blockquote>
-        <figcaption class="mt-6 pt-5 border-t border-line font-bold text-ink-2">Homeowner · Haslett</figcaption>
+        <figcaption class="mt-6 pt-5 border-t border-line font-bold text-ink-2">Homeowner &middot; Haslett</figcaption>
       </figure>
 
     </div>
@@ -510,16 +608,16 @@
 </section>
 
 <!-- ============================================================
-     RESOURCES / TIPS — clean cards on soft bg
+     SUMMER TIPS — positive, Greater-Lansing focused
      [SWAP TIPS]
      ============================================================ -->
 <section id="tips" class="py-20 md:py-28 bg-white">
   <div class="max-w-7xl mx-auto px-5 md:px-8">
 
     <div class="max-w-3xl mb-12 md:mb-16">
-      <div class="label text-brand mb-4">Free advice</div>
+      <div class="label text-brand mb-4">Free summer advice</div>
       <h2 class="h2 text-4xl md:text-5xl lg:text-6xl">
-        Tips from plumbers who'd rather you never needed us.
+        Summer Plumbing Tips for Greater Lansing Homes
       </h2>
     </div>
 
@@ -527,52 +625,52 @@
 
       <article class="bg-soft rounded-2xl p-7 md:p-8">
         <div class="flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-muted mb-5">
-          <span>Seasonal</span>
+          <span>Sprinklers</span>
           <span class="w-1 h-1 bg-muted rounded-full"></span>
           <span>4 min read</span>
         </div>
         <h3 class="h3 text-2xl md:text-[26px] mb-4">
-          Winter pipe protection for Lansing homes
+          Spring sprinkler startup, done right
         </h3>
         <p class="text-muted text-[16px] leading-relaxed mb-5">
-          Before the first hard freeze, disconnect outside hoses. During deep cold snaps, let a pencil-thin trickle run from the faucet furthest from your main. Know where your shut-off valve is before you need it. Open cabinet doors under sinks on the coldest nights.
+          Before you fire up your irrigation system, open the main shutoff <em>slowly</em> to avoid water hammer that can crack pipes. Run each zone for a minute or two. Watch for soggy spots, surprise geysers, or heads that don't pop up &mdash; those signal underground leaks or breaks.
         </p>
         <p class="text-ink font-bold">
-          Still frozen? Don't use open flame. Call us.
+          Can't find the source? Call us. We'll locate it fast.
         </p>
       </article>
 
       <article class="bg-soft rounded-2xl p-7 md:p-8">
         <div class="flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-muted mb-5">
-          <span>Water Heaters</span>
+          <span>Outdoor Faucets</span>
           <span class="w-1 h-1 bg-muted rounded-full"></span>
           <span>3 min read</span>
         </div>
         <h3 class="h3 text-2xl md:text-[26px] mb-4">
-          Signs you need a new water heater
+          Hose bib &amp; outdoor faucet check
         </h3>
         <p class="text-muted text-[16px] leading-relaxed mb-5">
-          Lukewarm water where there used to be hot. Rusty or cloudy water from the hot tap. Popping, rumbling, or knocking sounds from the tank. Any unit older than ten years. Water pooling around the base.
+          A faucet that drips after you turn it off &mdash; or water running inside the wall when the bib is off &mdash; usually means a worn washer or a cracked pipe from last winter's freeze. A tiny drip in June becomes a wall full of mold by August.
         </p>
         <p class="text-ink font-bold">
-          If two of these sound familiar, plan before it fails.
+          Fix it early, save the drywall.
         </p>
       </article>
 
       <article class="bg-soft rounded-2xl p-7 md:p-8">
         <div class="flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-muted mb-5">
-          <span>Drains</span>
+          <span>Summer Storms</span>
           <span class="w-1 h-1 bg-muted rounded-full"></span>
           <span>2 min read</span>
         </div>
         <h3 class="h3 text-2xl md:text-[26px] mb-4">
-          When a clog becomes an emergency
+          Summer storms and your sump pump
         </h3>
         <p class="text-muted text-[16px] leading-relaxed mb-5">
-          A slow sink is inconvenient. Sewage smells indoors, multiple backed-up drains at once, gurgling after the washer runs, or a toilet that won't flush even with a plunger — those usually mean the main sewer line, not a DIY problem.
+          Mid-Michigan storms can dump inches in an hour. Test your sump pump now: pour a bucket of water into the pit and watch it cycle. If it doesn't start, or cycles slowly, schedule service before the next thunderstorm.
         </p>
         <p class="text-ink font-bold">
-          Stop running water. Call a plumber.
+          Ask us about battery backups &mdash; most failures happen during power outages.
         </p>
       </article>
 
@@ -581,7 +679,7 @@
 </section>
 
 <!-- ============================================================
-     AREAS SERVED — clean tag grid
+     AREAS SERVED — Greater Lansing &amp; Mid-Michigan emphasis
      [SWAP CITIES LIST]
      ============================================================ -->
 <section id="areas" class="py-20 md:py-28 bg-soft">
@@ -591,10 +689,10 @@
       <div class="lg:col-span-5">
         <div class="label text-brand mb-4">Where we work</div>
         <h2 class="h2 text-4xl md:text-5xl lg:text-6xl mb-5">
-          Greater Lansing &amp; about 30 miles around it.
+          Serving Greater Lansing &amp; Mid-Michigan.
         </h2>
         <p class="text-muted text-lg">
-          We're a small team, so we stick close to home. If you're in Mid-Michigan and don't see your city listed, call us — chances are we still come out your way.
+          We're a small team, so we stick close to home &mdash; roughly a 30-mile radius around Greater Lansing. If you're in Mid-Michigan and don't see your city listed, call us. Chances are we still come out your way.
         </p>
       </div>
 
@@ -629,125 +727,10 @@
   </div>
 </section>
 
-<!-- ============================================================
-     CONTACT — form + info card
-     [FORM ENDPOINT]
-     ============================================================ -->
-<section id="contact" class="py-20 md:py-28 bg-white">
-  <div class="max-w-7xl mx-auto px-5 md:px-8">
-    <div class="grid lg:grid-cols-5 gap-10 lg:gap-16">
-
-      <div class="lg:col-span-2">
-        <div class="label text-brand mb-4">Get in touch</div>
-        <h2 class="h2 text-4xl md:text-5xl lg:text-6xl mb-6">
-          Request service or ask a plumber.
-        </h2>
-        <p class="text-muted text-lg mb-8">
-          For active emergencies, please call — we pick up 24/7. For scheduled work or questions, the form works just fine.
-        </p>
-
-        <div class="bg-soft rounded-2xl p-6 md:p-8 space-y-6">
-          <div>
-            <div class="label text-muted mb-2">Main Line · 24/7</div>
-            <a href="tel:517-267-1010" class="h2 text-3xl md:text-4xl text-brand hover:text-brand-hv transition block">
-              517-267-1010
-            </a>
-          </div>
-          <div>
-            <div class="label text-muted mb-2">Alt Line</div>
-            <a href="tel:517-641-6766" class="text-lg font-bold text-ink hover:text-brand transition">
-              517-641-6766
-            </a>
-          </div>
-          <div>
-            <div class="label text-muted mb-2">Shop Address</div>
-            <p class="text-ink font-semibold">
-              1008 Heald Place<br>
-              Lansing, MI 48912
-            </p>
-          </div>
-          <div>
-            <div class="label text-muted mb-2">Hours</div>
-            <p class="text-ink font-semibold">Mon–Fri · 8 a.m.–5 p.m.</p>
-            <p class="text-brand font-bold">24/7 emergency service</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lg:col-span-3">
-        <form action="#" method="POST"
-              class="bg-soft rounded-2xl p-6 md:p-9 space-y-5">
-
-          <div class="grid md:grid-cols-2 gap-5">
-            <div>
-              <label for="f-name" class="block text-sm font-bold mb-2 text-ink">Your name</label>
-              <input type="text" id="f-name" name="name" required
-                     class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition">
-            </div>
-            <div>
-              <label for="f-phone" class="block text-sm font-bold mb-2 text-ink">Phone</label>
-              <input type="tel" id="f-phone" name="phone" required
-                     class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition">
-            </div>
-          </div>
-
-          <div>
-            <label for="f-email" class="block text-sm font-bold mb-2 text-ink">Email</label>
-            <input type="email" id="f-email" name="email"
-                   class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition">
-          </div>
-
-          <div>
-            <label for="f-city" class="block text-sm font-bold mb-2 text-ink">City / ZIP</label>
-            <input type="text" id="f-city" name="city" placeholder="e.g. Lansing, 48912"
-                   class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition">
-          </div>
-
-          <div>
-            <label for="f-type" class="block text-sm font-bold mb-2 text-ink">What do you need?</label>
-            <select id="f-type" name="type"
-                    class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition">
-              <option>Emergency / ASAP</option>
-              <option>Schedule an appointment</option>
-              <option>Drain or sewer</option>
-              <option>Water heater</option>
-              <option>Boiler / heating</option>
-              <option>Remodel or new build</option>
-              <option>Commercial service</option>
-              <option>Just a question</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="f-msg" class="block text-sm font-bold mb-2 text-ink">Tell us what's going on</label>
-            <textarea id="f-msg" name="message" rows="4"
-                      class="w-full bg-white border border-line rounded-lg px-4 py-3 focus:border-brand focus:outline-none transition"></textarea>
-          </div>
-
-          <button type="submit"
-                  class="w-full bg-brand hover:bg-brand-hv text-white font-bold text-lg px-7 py-4 rounded-xl transition">
-            Send request
-          </button>
-
-          <p class="text-sm text-muted text-center">
-            Emergency? Call <a href="tel:517-267-1010" class="text-brand font-bold">517-267-1010</a> — we pick up day or night.
-          </p>
-        </form>
-
-        <!-- ============================================================
-             [AI CHATBOT EMBED] — paste chatbot script/iframe here.
-             ============================================================ -->
-        <!-- AI CHATBOT EMBED GOES HERE -->
-
-      </div>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <!-- ============================================================
-     FOOTER
+     FOOTER — dark, clean, with contact info
      ============================================================ -->
 <footer class="bg-ink text-white/80 pb-24 md:pb-14 pt-14 md:pt-20">
   <div class="max-w-7xl mx-auto px-5 md:px-8">
@@ -759,24 +742,27 @@
           <img src="logo-no-phone.png" alt="Frook Plumbing &amp; Mechanical" class="h-12 w-auto">
         </div>
         <p class="text-white/70 max-w-sm leading-relaxed">
-          Family-run plumbing &amp; mechanical contractors serving Greater Lansing since 1994. Licensed, bonded, insured.
+          Family-run plumbing &amp; mechanical contractors serving Greater Lansing and Mid-Michigan since 1994. Licensed, bonded, insured.
         </p>
       </div>
 
       <div class="md:col-span-3">
         <div class="label text-white/50 mb-4">Visit</div>
-        <p class="text-white font-semibold leading-relaxed">
+        <p class="text-white font-semibold leading-relaxed mb-4">
           1008 Heald Place<br>
           Lansing, MI 48912
         </p>
+        <div class="label text-white/50 mb-2">Hours</div>
+        <p class="text-white/80 text-sm">Mon&ndash;Fri &middot; 8 a.m.&ndash;5 p.m.</p>
+        <p class="text-accent font-bold text-sm">24/7 emergency service</p>
       </div>
 
       <div class="md:col-span-4">
         <div class="label text-white/50 mb-4">Call</div>
-        <a href="tel:517-267-1010" class="block text-white text-2xl font-bold hover:text-brand transition mb-1">
+        <a href="tel:517-267-1010" class="block text-white text-2xl font-bold hover:text-accent transition mb-1">
           517-267-1010
         </a>
-        <a href="tel:517-641-6766" class="text-white/75 hover:text-brand transition">
+        <a href="tel:517-641-6766" class="text-white/75 hover:text-accent transition">
           Alt: 517-641-6766
         </a>
       </div>
@@ -784,30 +770,31 @@
     </div>
 
     <div class="border-t border-white/10 pt-7 flex flex-col md:flex-row gap-4 md:items-center justify-between">
-      <p class="text-sm text-white/60">© <span id="yr"></span> Frook Plumbing &amp; Mechanical, Inc. · All rights reserved.</p>
+      <p class="text-sm text-white/60">&copy; <span id="yr"></span> Frook Plumbing &amp; Mechanical, Inc. &middot; All rights reserved.</p>
       <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
         <a href="#services" class="text-white/70 hover:text-white transition">Services</a>
+        <a href="#request"  class="text-white/70 hover:text-white transition">Request Service</a>
         <a href="#story"    class="text-white/70 hover:text-white transition">About</a>
         <a href="#voices"   class="text-white/70 hover:text-white transition">Testimonials</a>
-        <a href="#tips"     class="text-white/70 hover:text-white transition">Resources</a>
-        <a href="#contact"  class="text-white/70 hover:text-white transition">Contact</a>
+        <a href="#tips"     class="text-white/70 hover:text-white transition">Summer Tips</a>
       </nav>
     </div>
   </div>
 </footer>
 
 <!-- ============================================================
-     STICKY MOBILE CTA — single full-width emergency call button
+     STICKY MOBILE CTA — full-width RED urgent call button
+     Uses env(safe-area-inset-bottom) for iOS safe area
      ============================================================ -->
 <div class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-line"
-     style="padding-bottom: env(safe-area-inset-bottom); box-shadow: 0 -8px 24px rgba(10,15,20,0.08);">
+     style="padding-bottom: env(safe-area-inset-bottom); box-shadow: 0 -8px 24px rgba(10,15,20,0.10);">
   <div class="px-4 py-3">
     <a href="tel:517-267-1010"
-       class="flex items-center justify-center gap-3 bg-brand active:bg-brand-hv text-white font-bold text-[18px] py-5 rounded-xl shadow-lg w-full">
-      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+       class="flex items-center justify-center gap-3 bg-emergency active:bg-emergency-hv text-white font-bold text-[18px] py-5 rounded-xl shadow-lg w-full">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
       </svg>
-      24/7 Emergency · Call Now
+      24/7 Emergency &middot; Call Now
     </a>
   </div>
 </div>
