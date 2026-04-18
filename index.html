@@ -83,22 +83,6 @@
     main { padding-bottom: 96px; }
   }
 
-  .hero-overlay {
-    background: linear-gradient(90deg,
-      rgba(10,15,20,0.88) 0%,
-      rgba(10,15,20,0.72) 40%,
-      rgba(10,15,20,0.30) 75%,
-      rgba(10,15,20,0.10) 100%);
-  }
-  @media (max-width: 767px) {
-    .hero-overlay {
-      background: linear-gradient(180deg,
-        rgba(10,15,20,0.45) 0%,
-        rgba(10,15,20,0.80) 55%,
-        rgba(10,15,20,0.92) 100%);
-    }
-  }
-
   .svc-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
   .svc-card:hover { transform: translateY(-2px); border-color: #006d5b; }
 
@@ -115,9 +99,9 @@
 <header class="sticky top-0 z-40 bg-white border-b border-line">
   <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 md:h-20 flex items-center justify-between">
 
-    <!-- [SWAP NAV LOGO] — filename has a space, URL-encoded -->
+    <!-- [SWAP NAV LOGO] -->
     <a href="#top" class="flex items-center shrink-0" aria-label="Frook Plumbing home">
-      <img src="logo%20no%20phone.png" alt="Frook Plumbing &amp; Mechanical" class="h-10 md:h-12 w-auto">
+      <img src="logo-no-phone.png" alt="Frook Plumbing &amp; Mechanical" class="h-10 md:h-12 w-auto">
     </a>
 
     <nav class="hidden lg:flex items-center gap-9 text-[15px] font-semibold text-ink-2">
@@ -160,47 +144,56 @@
 <main id="top">
 
 <!-- ============================================================
-     HERO
+     HERO — SPLIT LAYOUT
+     Photo on right (desktop) / top (mobile) — NO dark overlay.
+     Content on left (desktop) / bottom (mobile) — clean white bg.
      [SWAP HERO IMAGE] + [SWAP HERO LOGO]
      ============================================================ -->
-<section class="relative">
-  <img src="Frook-Family-1-1500x600.jpg"
-       alt="The Frook family, owners of Frook Plumbing &amp; Mechanical in Lansing, Michigan"
-       class="absolute inset-0 w-full h-full object-cover object-center"
-       loading="eager">
-  <div class="absolute inset-0 hero-overlay"></div>
+<section class="bg-white">
+  <div class="grid lg:grid-cols-2 lg:min-h-[640px]">
 
-  <div class="relative max-w-7xl mx-auto px-5 md:px-8 pt-16 pb-20 md:py-36 lg:py-44">
-    <div class="max-w-2xl">
+    <!-- Photo column — first in HTML so mobile shows it on top -->
+    <div class="lg:order-2 relative overflow-hidden bg-soft">
+      <img src="Frook-Family-1-1500x600.jpg"
+           alt="The Frook family, owners of Frook Plumbing &amp; Mechanical in Lansing, Michigan"
+           class="w-full aspect-[5/3] lg:aspect-auto lg:h-full lg:absolute lg:inset-0 object-cover"
+           style="object-position: 50% 35%;"
+           loading="eager">
+    </div>
 
-      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8">
-        <span class="w-2 h-2 rounded-full bg-green-400"></span>
-        <span class="text-white text-sm font-semibold">Family-owned &middot; Lansing &middot; Since 1994</span>
+    <!-- Content column -->
+    <div class="lg:order-1 px-5 md:px-8 lg:px-12 xl:px-16 py-12 md:py-16 lg:py-20 flex flex-col justify-center">
+
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 bg-brand-lt border border-brand/15 rounded-full px-4 py-2 mb-6 self-start">
+        <span class="w-2 h-2 rounded-full bg-brand"></span>
+        <span class="text-brand text-sm font-semibold">Family-owned &middot; Lansing &middot; Since 1994</span>
       </div>
 
-      <!-- [SWAP HERO LOGO] -->
+      <!-- [SWAP HERO LOGO] — sits cleanly on white, no container card -->
       <img src="frook-logo-new-with-phone.png"
            alt="Frook Plumbing &amp; Mechanical — 517-267-1010"
-           class="w-56 md:w-64 bg-white rounded-xl p-3 mb-8 shadow-lg">
+           class="w-48 md:w-56 lg:w-64 mb-7">
 
-      <h1 class="h1 text-white text-[44px] sm:text-6xl md:text-7xl mb-6">
-        Lansing's trusted<br>plumbers.
+      <!-- Headline — sized to fit 50% column -->
+      <h1 class="h1 text-ink text-[42px] sm:text-5xl lg:text-[60px] xl:text-7xl mb-5">
+        Lansing's trusted plumbers.
       </h1>
 
-      <p class="text-white/90 text-lg md:text-xl mb-10 max-w-xl leading-relaxed">
+      <p class="text-muted text-lg md:text-xl mb-9 max-w-xl leading-relaxed">
         Licensed, bonded, and insured. Family-run since 1994. 24/7 emergency service across Greater Lansing and Mid-Michigan.
       </p>
 
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <a href="tel:517-267-1010"
-           class="inline-flex items-center justify-center gap-3 bg-brand hover:bg-brand-hv text-white font-bold text-lg px-8 py-5 rounded-xl shadow-lg transition">
+           class="inline-flex items-center justify-center gap-3 bg-brand hover:bg-brand-hv text-white font-bold text-lg px-7 py-5 rounded-xl shadow-lg transition">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
           </svg>
           Call 24/7 &middot; 517-267-1010
         </a>
         <a href="#contact"
-           class="inline-flex items-center justify-center gap-2 bg-white hover:bg-white/90 text-ink font-bold text-lg px-8 py-5 rounded-xl transition">
+           class="inline-flex items-center justify-center gap-2 bg-white border-2 border-ink hover:bg-ink hover:text-white text-ink font-bold text-lg px-7 py-5 rounded-xl transition">
           Request Service
         </a>
       </div>
@@ -263,22 +256,37 @@
 </section>
 
 <!-- ============================================================
-     SERVICES — clean card grid with icons
+     SERVICES — two-column intro + clean card grid with icons
      [SWAP SERVICES LIST]
      ============================================================ -->
 <section id="services" class="py-20 md:py-28 bg-soft">
   <div class="max-w-7xl mx-auto px-5 md:px-8">
 
-    <div class="max-w-3xl mb-12 md:mb-16">
-      <div class="label text-brand mb-4">What we do</div>
-      <h2 class="h2 text-4xl md:text-6xl mb-5">
-        Plumbing and mechanical, done right.
-      </h2>
-      <p class="text-muted text-lg md:text-xl">
-        Residential and commercial service across Greater Lansing. If it carries water, heat, or gas — we fix it, install it, and stand behind it.
-      </p>
+    <!-- Intro: content left, team/truck photo right -->
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-14 md:mb-20">
+
+      <div>
+        <div class="label text-brand mb-4">What we do</div>
+        <h2 class="h2 text-4xl md:text-5xl lg:text-6xl mb-5">
+          Plumbing and mechanical, done right.
+        </h2>
+        <p class="text-muted text-lg md:text-xl leading-relaxed">
+          Residential and commercial service across Greater Lansing. If it carries water, heat, or gas — we fix it, install it, and stand behind it.
+        </p>
+      </div>
+
+      <!-- [SWAP SERVICES IMAGE] -->
+      <div>
+        <img src="Frook-Plumbers-1500x600.jpg"
+             alt="Frook Plumbing crew standing in front of a service truck"
+             class="w-full rounded-2xl object-cover aspect-[5/3] shadow-card"
+             style="object-position: center center;"
+             loading="lazy">
+      </div>
+
     </div>
 
+    <!-- Card grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
 
       <div class="svc-card bg-white border border-line rounded-2xl p-7 md:p-8 shadow-card">
@@ -360,6 +368,7 @@
 
 <!-- ============================================================
      ABOUT / STORY — warmer journalistic voice, clean layout
+     Dave image uses 5/3 aspect now to fit the 2.5:1 source file
      [REPLACE STORY TEXT HERE]
      ============================================================ -->
 <section id="story" class="py-20 md:py-28 bg-white">
@@ -370,13 +379,14 @@
       <div class="order-2 lg:order-1">
         <img src="Dave-Frook-1500x600.jpg"
              alt="Dave Frook at a customer's Lansing home"
-             class="w-full rounded-2xl object-cover aspect-[5/4] shadow-card"
+             class="w-full rounded-2xl object-cover aspect-[5/3] shadow-card"
+             style="object-position: center center;"
              loading="lazy">
       </div>
 
       <div class="order-1 lg:order-2">
         <div class="label text-brand mb-4">Our story</div>
-        <h2 class="h2 text-4xl md:text-6xl mb-6">
+        <h2 class="h2 text-4xl md:text-5xl lg:text-6xl mb-6">
           Thirty years of showing up.
         </h2>
 
@@ -405,16 +415,19 @@
 </section>
 
 <!-- ============================================================
-     TEAM BANNER — full-bleed + testimonial card overlay
+     TEAM BANNER — full-bleed, LIGHT gradient, testimonial card
+     Gradient lightened from ink/80 to ink/35 so the crew photo shows
      [SWAP TEAM IMAGE]
      ============================================================ -->
 <section id="voices" class="relative">
   <div class="relative h-[460px] md:h-[560px] overflow-hidden">
     <img src="frook-slide-2-1500x600.png"
          alt="The Frook Plumbing team"
-         class="absolute inset-0 w-full h-full object-cover object-center"
+         class="absolute inset-0 w-full h-full object-cover"
+         style="object-position: center center;"
          loading="lazy">
-    <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-transparent"></div>
+    <!-- Lighter gradient: only a soft bottom fade for card legibility -->
+    <div class="absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent"></div>
 
     <div class="relative max-w-7xl mx-auto px-5 md:px-8 h-full flex items-end pb-10 md:pb-16">
       <div class="max-w-lg bg-white rounded-2xl shadow-2xl p-7 md:p-9">
@@ -443,7 +456,7 @@
 
     <div class="max-w-3xl mb-12 md:mb-16">
       <div class="label text-brand mb-4">What customers say</div>
-      <h2 class="h2 text-4xl md:text-6xl">
+      <h2 class="h2 text-4xl md:text-5xl lg:text-6xl">
         Real reviews from Lansing neighbors.
       </h2>
     </div>
@@ -497,7 +510,7 @@
 </section>
 
 <!-- ============================================================
-     RESOURCES / TIPS — clean white cards on light gray
+     RESOURCES / TIPS — clean cards on soft bg
      [SWAP TIPS]
      ============================================================ -->
 <section id="tips" class="py-20 md:py-28 bg-white">
@@ -505,7 +518,7 @@
 
     <div class="max-w-3xl mb-12 md:mb-16">
       <div class="label text-brand mb-4">Free advice</div>
-      <h2 class="h2 text-4xl md:text-6xl">
+      <h2 class="h2 text-4xl md:text-5xl lg:text-6xl">
         Tips from plumbers who'd rather you never needed us.
       </h2>
     </div>
@@ -568,7 +581,7 @@
 </section>
 
 <!-- ============================================================
-     AREAS SERVED — clean tag-style grid
+     AREAS SERVED — clean tag grid
      [SWAP CITIES LIST]
      ============================================================ -->
 <section id="areas" class="py-20 md:py-28 bg-soft">
@@ -577,7 +590,7 @@
 
       <div class="lg:col-span-5">
         <div class="label text-brand mb-4">Where we work</div>
-        <h2 class="h2 text-4xl md:text-6xl mb-5">
+        <h2 class="h2 text-4xl md:text-5xl lg:text-6xl mb-5">
           Greater Lansing &amp; about 30 miles around it.
         </h2>
         <p class="text-muted text-lg">
@@ -626,7 +639,7 @@
 
       <div class="lg:col-span-2">
         <div class="label text-brand mb-4">Get in touch</div>
-        <h2 class="h2 text-4xl md:text-6xl mb-6">
+        <h2 class="h2 text-4xl md:text-5xl lg:text-6xl mb-6">
           Request service or ask a plumber.
         </h2>
         <p class="text-muted text-lg mb-8">
@@ -723,7 +736,6 @@
 
         <!-- ============================================================
              [AI CHATBOT EMBED] — paste chatbot script/iframe here.
-             e.g. <script src="https://your-chatbot-provider.com/widget.js" data-site="frook"></script>
              ============================================================ -->
         <!-- AI CHATBOT EMBED GOES HERE -->
 
@@ -744,7 +756,7 @@
 
       <div class="md:col-span-5">
         <div class="bg-white rounded-xl p-3 inline-block mb-5">
-          <img src="logo%20no%20phone.png" alt="Frook Plumbing &amp; Mechanical" class="h-12 w-auto">
+          <img src="logo-no-phone.png" alt="Frook Plumbing &amp; Mechanical" class="h-12 w-auto">
         </div>
         <p class="text-white/70 max-w-sm leading-relaxed">
           Family-run plumbing &amp; mechanical contractors serving Greater Lansing since 1994. Licensed, bonded, insured.
