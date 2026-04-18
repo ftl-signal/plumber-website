@@ -100,6 +100,55 @@
 
   /* Prevent iOS zoom on form focus */
   input, select, textarea { font-size: 16px; }
+
+  /* =========================================================
+     CITY RIBBON (desktop-only)
+     Slow-scrolling marquee of cities served. Pauses on hover.
+     Respects prefers-reduced-motion.
+     ========================================================= */
+  .city-ribbon { display: none; }
+  @media (min-width: 1024px) {
+    .city-ribbon { display: block; }
+  }
+  .marquee-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  .marquee-wrap::before,
+  .marquee-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 72px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .marquee-wrap::before {
+    left: 0;
+    background: linear-gradient(90deg, #f6f7f9 0%, rgba(246,247,249,0) 100%);
+  }
+  .marquee-wrap::after {
+    right: 0;
+    background: linear-gradient(270deg, #f6f7f9 0%, rgba(246,247,249,0) 100%);
+  }
+  .marquee-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: max-content;
+    white-space: nowrap;
+    animation: marquee 60s linear infinite;
+  }
+  .marquee-wrap:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
 </style>
 </head>
 
@@ -176,6 +225,65 @@
     </nav>
   </div>
 </header>
+
+<!-- ============================================================
+     CITY RIBBON — desktop-only service-area marquee
+     Auto-scrolls slowly, pauses on hover, hidden on mobile.
+     Edit the <span> list once; JS duplicates it for seamless loop.
+     [SWAP CITY LIST]
+     ============================================================ -->
+<div class="city-ribbon bg-soft border-b border-line">
+  <div class="marquee-wrap py-3">
+    <div class="marquee-track text-sm font-medium text-muted" data-marquee>
+      <span class="text-brand font-bold shrink-0">Serving Greater Lansing &amp; Mid-Michigan</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Bath</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Charlotte</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Dansville</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>DeWitt</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Dimondale</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Eagle</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>East Lansing</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Eaton Rapids</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Fowlerville</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Grand Ledge</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Haslett</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Holt</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Laingsburg</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span class="text-brand font-bold">Lansing</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Leslie</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Mason</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Okemos</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Perry</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Potterville</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>St. Johns</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Webberville</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+      <span>Williamston</span>
+      <span class="text-line" aria-hidden="true">&middot;</span>
+    </div>
+  </div>
+</div>
 
 <main id="top">
 
@@ -773,6 +881,21 @@
   }));
   /* Dynamic copyright year */
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* City ribbon: duplicate contents once so the marquee loops seamlessly.
+     Edit the city list only once in HTML — JS clones it at runtime.
+     Skips duplication if the user prefers reduced motion. */
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('[data-marquee]').forEach(track => {
+      track.insertAdjacentHTML('beforeend', track.innerHTML);
+      /* Mark duplicated nodes as aria-hidden for screen readers */
+      const children = track.children;
+      const half = children.length / 2;
+      for (let i = half; i < children.length; i++) {
+        children[i].setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
 </script>
 
 </body>
