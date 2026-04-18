@@ -94,51 +94,6 @@
     main { padding-bottom: 96px; }
   }
 
-  /* =========================================================
-     HERO IMAGE POSITIONING
-     Object-position is set differently for mobile vs desktop
-     so the family is always in frame no matter the viewport.
-     Desktop: shift image RIGHT (30% x) so family isn't under
-              the text content on the left.
-     Mobile:  center horizontally (50% x) so family is centered
-              in the top banner portion.
-     Vertical: 30–35% anchors faces high in the frame, preventing
-               top-crop of heads at any aspect ratio.
-     ========================================================= */
-  .hero-family-img {
-    object-fit: cover;
-    object-position: 30% 35%;
-  }
-  @media (max-width: 767px) {
-    .hero-family-img {
-      object-position: 50% 30%;
-    }
-  }
-
-  /* =========================================================
-     HERO LIGHT GRADIENT
-     Desktop: darkens only the left side where text sits.
-              Fades to transparent by 65% width so the family
-              photo stays bright and visible.
-     Mobile:  softer top-to-bottom fade, content sits at bottom.
-     ========================================================= */
-  .hero-overlay {
-    background: linear-gradient(90deg,
-      rgba(10,15,20,0.62) 0%,
-      rgba(10,15,20,0.35) 30%,
-      rgba(10,15,20,0.08) 60%,
-      rgba(10,15,20,0) 80%);
-  }
-  @media (max-width: 767px) {
-    .hero-overlay {
-      background: linear-gradient(180deg,
-        rgba(10,15,20,0.00) 0%,
-        rgba(10,15,20,0.15) 35%,
-        rgba(10,15,20,0.65) 80%,
-        rgba(10,15,20,0.80) 100%);
-    }
-  }
-
   /* Service card hover */
   .svc-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
   .svc-card:hover { transform: translateY(-2px); border-color: #006d5b; }
@@ -180,7 +135,7 @@
   <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 md:h-20 flex items-center justify-between">
 
     <a href="#top" class="flex items-center shrink-0" aria-label="Frook Plumbing home">
-      <img src="logo-no-phone.png" alt="Frook Plumbing &amp; Mechanical" class="h-10 md:h-12 w-auto">
+      <img src="logo%20no%20phone.png" alt="Frook Plumbing &amp; Mechanical" class="h-10 md:h-12 w-auto">
     </a>
 
     <nav class="hidden lg:flex items-center gap-9 text-[15px] font-semibold text-ink-2">
@@ -225,53 +180,58 @@
 <main id="top">
 
 <!-- ============================================================
-     HERO — full-bleed family photo with LIGHT gradient
+     HERO — SPLIT LAYOUT
+     Content column (white) on left desktop / below mobile.
+     Family photo column on right desktop / on top mobile.
+     NO overlay, NO gradient — photo and content never overlap.
      [SWAP HERO IMAGE] + [SWAP HERO LOGO]
-     Red urgent CTA + white secondary
      ============================================================ -->
-<section class="relative overflow-hidden">
-  <img src="Frook-Family-1-1500x600.jpg"
-       alt="The Frook family, owners of Frook Plumbing &amp; Mechanical in Greater Lansing"
-       class="hero-family-img absolute inset-0 w-full h-full"
-       loading="eager">
-  <div class="absolute inset-0 hero-overlay"></div>
+<section class="bg-white">
+  <div class="grid lg:grid-cols-2 lg:min-h-[640px]">
 
-  <div class="relative max-w-7xl mx-auto px-5 md:px-8 pt-16 pb-20 md:py-36 lg:py-44">
-    <div class="max-w-2xl">
+    <!-- Photo column — first in HTML so mobile shows it on top -->
+    <div class="lg:order-2 relative overflow-hidden bg-soft">
+      <img src="Frook-Family-1-1500x600.jpg"
+           alt="The Frook family, owners of Frook Plumbing &amp; Mechanical in Greater Lansing"
+           class="w-full aspect-[5/3] lg:aspect-auto lg:h-full lg:absolute lg:inset-0 object-cover"
+           style="object-position: 50% 35%;"
+           loading="eager">
+    </div>
 
-      <!-- Since 1994 badge -->
-      <div class="inline-flex items-center gap-2 bg-white/12 backdrop-blur-sm border border-white/25 rounded-full px-4 py-2 mb-8">
-        <span class="w-2 h-2 rounded-full bg-accent"></span>
-        <span class="text-white text-sm font-semibold">Family-owned &middot; Greater Lansing &middot; Since 1994</span>
+    <!-- Content column -->
+    <div class="lg:order-1 px-5 md:px-8 lg:px-12 xl:px-16 py-12 md:py-16 lg:py-20 flex flex-col justify-center">
+
+      <!-- Since 1994 badge (teal tint for white bg) -->
+      <div class="inline-flex items-center gap-2 bg-brand-lt border border-brand/15 rounded-full px-4 py-2 mb-6 self-start">
+        <span class="w-2 h-2 rounded-full bg-brand"></span>
+        <span class="text-brand text-sm font-semibold">Family-owned &middot; Greater Lansing &middot; Since 1994</span>
       </div>
 
-      <!-- [SWAP HERO LOGO] — big logo w/ phone baked in -->
+      <!-- [SWAP HERO LOGO] — sits cleanly on white, no wrapper needed -->
       <img src="frook-logo-new-with-phone.png"
            alt="Frook Plumbing &amp; Mechanical — 517-267-1010"
-           class="w-56 md:w-64 bg-white rounded-xl p-3 mb-8 shadow-lg">
+           class="w-48 md:w-56 lg:w-64 mb-7">
 
-      <!-- [SWAP HEADLINE] -->
-      <h1 class="h1 text-white text-[42px] sm:text-6xl md:text-7xl mb-6"
-          style="text-shadow: 0 2px 20px rgba(0,0,0,0.35);">
+      <!-- [SWAP HEADLINE] — dark text on white -->
+      <h1 class="h1 text-ink text-[40px] sm:text-5xl lg:text-[56px] xl:text-6xl mb-5">
         Greater Lansing's<br>neighborhood plumbers.
       </h1>
 
-      <p class="text-white text-lg md:text-xl mb-10 max-w-xl leading-relaxed"
-         style="text-shadow: 0 1px 10px rgba(0,0,0,0.4);">
-        Plumbing &amp; drain experts since 1994. Licensed, bonded, insured. 24/7 emergency service across Greater Lansing and Mid-Michigan — sprinkler systems, water heaters, drains, and everything in between.
+      <p class="text-muted text-lg md:text-xl mb-9 max-w-xl leading-relaxed">
+        Plumbing &amp; drain experts since 1994. Licensed, bonded, insured. 24/7 emergency service across Greater Lansing and Mid-Michigan &mdash; sprinkler systems, water heaters, drains, and everything in between.
       </p>
 
-      <!-- CTAs: RED urgent + white secondary -->
+      <!-- CTAs: RED urgent + outlined secondary -->
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <a href="tel:517-267-1010"
-           class="inline-flex items-center justify-center gap-3 bg-emergency hover:bg-emergency-hv text-white font-bold text-lg px-7 py-5 rounded-xl shadow-xl transition ring-1 ring-emergency/60">
+           class="inline-flex items-center justify-center gap-3 bg-emergency hover:bg-emergency-hv text-white font-bold text-lg px-7 py-5 rounded-xl shadow-lg transition">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
           </svg>
           24/7 Emergency &middot; 517-267-1010
         </a>
         <a href="#request"
-           class="inline-flex items-center justify-center gap-2 bg-white hover:bg-white/95 text-ink font-bold text-lg px-7 py-5 rounded-xl transition shadow-lg">
+           class="inline-flex items-center justify-center gap-2 bg-white border-2 border-ink hover:bg-ink hover:text-white text-ink font-bold text-lg px-7 py-5 rounded-xl transition">
           Request Service
         </a>
       </div>
@@ -739,7 +699,7 @@
 
       <div class="md:col-span-5">
         <div class="bg-white rounded-xl p-3 inline-block mb-5">
-          <img src="logo-no-phone.png" alt="Frook Plumbing &amp; Mechanical" class="h-12 w-auto">
+          <img src="logo%20no%20phone.png" alt="Frook Plumbing &amp; Mechanical" class="h-12 w-auto">
         </div>
         <p class="text-white/70 max-w-sm leading-relaxed">
           Family-run plumbing &amp; mechanical contractors serving Greater Lansing and Mid-Michigan since 1994. Licensed, bonded, insured.
